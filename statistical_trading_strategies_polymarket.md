@@ -30,23 +30,23 @@ The remainder of this paper proceeds as follows: Section 2 details the market st
 
 ### 2.1 Contract Mechanics
 
-Polymarket contracts are structured as binary outcome markets. For a market with two mutually exclusive outcomes (e.g., "Will Candidate X win the election?"), traders purchase "Yes" or "No" shares. Each share pays $1.00 if the outcome occurs and $0.00 otherwise. The price of a share at any time $t$, denoted $P_t \\in [0,1]$, represents the market-implied probability of that outcome.
+Polymarket contracts are structured as binary outcome markets. For a market with two mutually exclusive outcomes (e.g., "Will Candidate X win the election?"), traders purchase "Yes" or "No" shares. Each share pays $1.00 if the outcome occurs and $0.00 otherwise. The price of a share at any time $t$, denoted $P_t \in [0,1]$, represents the market-implied probability of that outcome.
 
-The instantaneous expected return for purchasing a "Yes" share when the true probability is $\\pi$ and current price is $P_t$ is:
+The instantaneous expected return for purchasing a "Yes" share when the true probability is $\pi$ and current price is $P_t$ is:
 
-$$\\mathbb{E}[R] = \\frac{\\pi - P_t}{P_t}$$
+$$\mathbb{E}[R] = \frac{\pi - P_t}{P_t}$$
 
 Similarly, for a "No" share:
 
-$$\\mathbb{E}[R] = \\frac{(1-\\pi) - (1-P_t)}{1-P_t} = \\frac{P_t - \\pi}{1-P_t}$$
+$$\mathbb{E}[R] = \frac{(1-\pi) - (1-P_t)}{1-P_t} = \frac{P_t - \pi}{1-P_t}$$
 
 ### 2.2 Fee Structure
 
 Polymarket imposes fees on profitable positions at settlement, typically 2% of net profit. This creates an effective transaction cost that must be incorporated into signal thresholds. The breakeven condition for a long position becomes:
 
-$$\\pi(1 - \\phi) - P_t > 0 \\implies \\pi > \\frac{P_t}{1-\\phi}$$
+$$\pi(1 - \phi) - P_t > 0 \implies \pi > \frac{P_t}{1-\phi}$$
 
-where $\\phi = 0.02$ represents the fee rate. This implies that for a share priced at $0.50, the true probability must exceed approximately $0.5102$ for positive expected value.
+where $\phi = 0.02$ represents the fee rate. This implies that for a share priced at $0.50, the true probability must exceed approximately $0.5102$ for positive expected value.
 
 ### 2.3 Data Granularity
 
@@ -72,51 +72,51 @@ The strategy maintains a probabilistic model of the event outcome and updates be
 
 ### 3.2 Mathematical Formulation
 
-Let the filtration of publicly available information up to time t be denoted by F_t. The Bayesian updating procedure assumes a Beta prior on the probability parameter:
+Let the filtration of publicly available information up to time $t$ be denoted by $F_t$. The Bayesian updating procedure assumes a Beta prior on the probability parameter:
 
-pi ~ Beta(alpha_0, beta_0)
+$$\pi \sim \text{Beta}(\alpha_0, \beta_0)$$
 
-As binary signals s_t are observed (e.g., polling data, news sentiment, on-chain metrics), the posterior updates according to:
+As binary signals $s_t$ are observed (e.g., polling data, news sentiment, on-chain metrics), the posterior updates according to:
 
-pi | s_1, ..., s_t ~ Beta(alpha_0 + sum(s_i), beta_0 + t - sum(s_i))
+$$\pi \mid s_1, \ldots, s_t \sim \text{Beta}(\alpha_0 + \sum(s_i), \beta_0 + t - \sum(s_i))$$
 
-The posterior mean at time t is:
+The posterior mean at time $t$ is:
 
-pi_hat_t = (alpha_0 + sum(s_i)) / (alpha_0 + beta_0 + t)
+$$\hat{\pi}_t = (\alpha_0 + \sum(s_i)) / (\alpha_0 + \beta_0 + t)$$
 
 The signal generation rule incorporates both statistical confidence and transaction costs. Define the mispricing metric:
 
-Delta_t = pi_hat_t - P_t
+$$\Delta_t = \hat{\pi}_t - P_t$$
 
 A trading signal is generated when:
 
-|Delta_t| > k * sigma_t + fee_adjustment
+$$|\Delta_t| > k \cdot \sigma_t + \text{fee\_adjustment}$$
 
-where sigma_t represents the posterior standard deviation:
+where $\sigma_t$ represents the posterior standard deviation:
 
-sigma_t = sqrt(pi_hat_t * (1 - pi_hat_t) / (alpha_0 + beta_0 + t + 1))
+$$\sigma_t = \sqrt{\hat{\pi}_t (1 - \hat{\pi}_t) / (\alpha_0 + \beta_0 + t + 1)}$$
 
-and k is a risk-adjustment parameter typically calibrated to k in [1.5, 3.0].
+and $k$ is a risk-adjustment parameter typically calibrated to $k \in [1.5, 3.0]$.
 
 ### 3.3 Signal Generation and Position Sizing
 
-The direction of the trade follows the sign of Delta_t:
-- Long signal: Delta_t > threshold => Buy "Yes" shares
-- Short signal: Delta_t < -threshold => Buy "No" shares
+The direction of the trade follows the sign of $\Delta_t$:
+- Long signal: $\Delta_t > \text{threshold}$ => Buy "Yes" shares
+- Short signal: $\Delta_t < -\text{threshold}$ => Buy "No" shares
 
-Position sizing employs the Kelly criterion adapted for prediction market payouts. For a long position with estimated edge Delta_t and current price P_t:
+Position sizing employs the Kelly criterion adapted for prediction market payouts. For a long position with estimated edge $\Delta_t$ and current price $P_t$:
 
-f_star_t = (pi_hat_t * (1 - phi) - P_t) / (pi_hat_t * (1 - phi) * (1 - P_t))
+$$f^*_t = (\hat{\pi}_t (1 - \phi) - P_t) / (\hat{\pi}_t (1 - \phi) (1 - P_t))$$
 
-In practice, fractional Kelly with 1/4 <= lambda <= 1/2 is applied to account for model uncertainty:
+In practice, fractional Kelly with $1/4 \le \lambda \le 1/2$ is applied to account for model uncertainty:
 
-f_t = lambda * f_star_t
+$$f_t = \lambda \cdot f^*_t$$
 
 The dollar allocation to the position is:
 
-Q_t = f_t * V_t
+$$Q_t = f_t \cdot V_t$$
 
-where V_t represents available trading capital.
+where $V_t$ represents available trading capital.
 
 ### 3.4 Information Sources and Feature Engineering
 
@@ -155,41 +155,41 @@ The challenge is that prediction markets exhibit distinct volatility regimes dep
 
 Let the observed time series be the log-odds transformation of prices:
 
-X_t = log(P_t / (1 - P_t))
+$$X_t = \log(P_t / (1 - P_t))$$
 
 This transformation maps the bounded price domain to the real line, enabling standard time-series methods while preserving probability interpretation.
 
 We assume the log-odds process follows a 2-state Hidden Markov Model:
 
-X_t = mu_{S_t} + phi_{S_t} * X_{t-1} + epsilon_t, epsilon_t ~ N(0, sigma^2_{S_t})
+$$X_t = \mu_{S_t} + \phi_{S_t} X_{t-1} + \epsilon_t, \quad \epsilon_t \sim N(0, \sigma^2_{S_t})$$
 
-where S_t in {1, 2} represents the hidden regime state with transition matrix A.
+where $S_t \in \{1, 2\}$ represents the hidden regime state with transition matrix $A$.
 
-**State 1 (Trending):** High autocorrelation |phi_1| approx 0.7-0.9, moderate volatility. Markets exhibit persistent directional moves.
+**State 1 (Trending):** High autocorrelation $|\phi_1| \approx 0.7\text{--}0.9$, moderate volatility. Markets exhibit persistent directional moves.
 
-**State 2 (Mean-Reverting):** Low autocorrelation |phi_2| approx 0.1-0.3, high volatility. Markets exhibit back-and-forth noise without clear direction.
+**State 2 (Mean-Reverting):** Low autocorrelation $|\phi_2| \approx 0.1\text{--}0.3$, high volatility. Markets exhibit back-and-forth noise without clear direction.
 
-The Baum-Welch algorithm estimates parameters via maximum likelihood. The forward-backward algorithm computes smoothed state probabilities gamma_t(i).
+The Baum-Welch algorithm estimates parameters via maximum likelihood. The forward-backward algorithm computes smoothed state probabilities $\gamma_t(i)$.
 
 ### 4.3 Signal Generation
 
 The momentum signal is generated conditional on the most likely regime:
 
-S_hat_t = argmax gamma_t(i)
+$$\hat{S}_t = \arg\max_i \gamma_t(i)$$
 
 **In Trending Regime (S_hat_t = 1):**
 
 Compute the momentum score using an exponential moving average of returns:
 
-m_t = sum w_k * (X_{t-k} - X_{t-k-1})
+$$m_t = \sum w_k (X_{t-k} - X_{t-k-1})$$
 
-where w_k = exp(-lambda * k) / sum and lambda = 0.1 controls decay.
+where $w_k = \exp(-\lambda k) / \sum$ and $\lambda = 0.1$ controls decay.
 
 The trading signal is:
-- Long Momentum: m_t > delta and phi_1 > 0 => Buy "Yes" if trend is upward
-- Short Momentum: m_t < -delta and phi_1 > 0 => Buy "No" if trend is downward
+- Long Momentum: $m_t > \delta$ and $\phi_1 > 0$ => Buy "Yes" if trend is upward
+- Short Momentum: $m_t < -\delta$ and $\phi_1 > 0$ => Buy "No" if trend is downward
 
-The threshold delta is calibrated to delta = 1.5 * sigma_EMA.
+The threshold $\delta$ is calibrated to $\delta = 1.5 \cdot \sigma_{\text{EMA}}$.
 
 **In Mean-Reverting Regime (S_hat_t = 2):**
 
@@ -223,39 +223,39 @@ The Order Flow Imbalance (OFI) strategy measures the net buying and selling pres
 
 ### 5.2 Mathematical Formulation
 
-Define the trade sign indicator for transaction i at time tau_i:
+Define the trade sign indicator for transaction $i$ at time $\tau_i$:
 
-epsilon_i = +1 if buyer-initiated (trade price at or above ask)
-epsilon_i = -1 if seller-initiated (trade price at or below bid)
+$\epsilon_i = +1$ if buyer-initiated (trade price at or above ask)
+$\epsilon_i = -1$ if seller-initiated (trade price at or below bid)
 
-The volume-weighted order flow imbalance over interval Delta t is:
+The volume-weighted order flow imbalance over interval $\Delta t$ is:
 
-OFI_t = sum(epsilon_i * v_i) / sum(v_i)
+$$\text{OFI}_t = \frac{\sum(\epsilon_i v_i)}{\sum(v_i)}$$
 
-where v_i represents the volume of transaction i. The normalization creates a metric bounded in [-1, 1].
+where $v_i$ represents the volume of transaction $i$. The normalization creates a metric bounded in $[-1, 1]$.
 
 For prediction markets, we augment OFI with a depth-imbalance measure reflecting limit book asymmetry:
 
-DI_t = (V_b(t) - V_a(t)) / (V_b(t) + V_a(t))
+$$\text{DI}_t = \frac{V_b(t) - V_a(t)}{V_b(t) + V_a(t)}$$
 
-where V_b and V_a represent cumulative volume at best bid and ask.
+where $V_b$ and $V_a$ represent cumulative volume at best bid and ask.
 
 The composite microstructure signal is:
 
-M_t = w_1 * OFI_t + w_2 * DI_t + w_3 * spread_zscore
+$$M_t = w_1 \cdot \text{OFI}_t + w_2 \cdot \text{DI}_t + w_3 \cdot \text{spread\_zscore}$$
 
 The spread term acts as an inverse signal: unusually wide spreads indicate uncertainty and impending volatility.
 
 ### 5.3 Signal Generation and Execution
 
 **Signal Thresholds:**
-- Strong Buy: M_t > theta_buy => Aggressively buy "Yes" shares
-- Weak Buy: 0 < M_t <= theta_buy => Place limit buy orders near best bid
-- Neutral: -theta_sell < M_t <= 0 => No position
-- Weak Sell: -theta_sell <= M_t < 0 => Place limit sell orders
-- Strong Sell: M_t < -theta_sell => Aggressively buy "No" shares
+- Strong Buy: $M_t > \theta_{\text{buy}}$ => Aggressively buy "Yes" shares
+- Weak Buy: $0 < M_t \le \theta_{\text{buy}}$ => Place limit buy orders near best bid
+- Neutral: $-\theta_{\text{sell}} < M_t \le 0$ => No position
+- Weak Sell: $-\theta_{\text{sell}} \le M_t < 0$ => Place limit sell orders
+- Strong Sell: $M_t < -\theta_{\text{sell}}$ => Aggressively buy "No" shares
 
-Typical threshold calibration: theta = 0.3 based on empirical quantiles.
+Typical threshold calibration: $\theta = 0.3$ based on empirical quantiles.
 
 **Execution Logic:**
 Given the 2% fee on winning trades, microstructure strategies must capture sufficiently large expected moves. Signal confidence must predict moves of at least $0.02-0.03 to be profitable after fees.
@@ -264,7 +264,7 @@ Given the 2% fee on winning trades, microstructure strategies must capture suffi
 
 A critical challenge is adverse selection. Large OFI may reflect informed trading or uninformed herding. We model signal expected decay using an exponential kernel:
 
-Expected Return_t(tau) = alpha * M_t * exp(-beta * tau)
+$$\mathbb{E}[\text{Return}_t(\tau)] = \alpha \cdot M_t \cdot \exp(-\beta \tau)$$
 
 Positions are automatically closed when expected return decays below cost threshold, opposite signal is generated, or maximum holding time (typically 4 hours) is reached.
 
@@ -293,39 +293,39 @@ The Cross-Market Correlation Clustering strategy identifies groups of related ma
 
 ### 6.2 Mathematical Formulation
 
-Consider a universe of N related markets with log-odds price series X_t = (X_t^(1), ..., X_t^(N)). The covariance structure is estimated over a rolling window:
+Consider a universe of $N$ related markets with log-odds price series $X_t = (X_t^{(1)}, \ldots, X_t^{(N)})$. The covariance structure is estimated over a rolling window:
 
-Sigma_hat_t = (1/(M-1)) * sum((X_{t-k} - X_bar)(X_{t-k} - X_bar)^T)
+$$\hat{\Sigma}_t = \frac{1}{M-1} \sum\bigl((X_{t-k} - \bar{X})(X_{t-k} - \bar{X})^T\bigr)$$
 
-where M = 30 days represents the calibration window.
+where $M = 30$ days represents the calibration window.
 
-We define the cointegration vector beta via principal component analysis on Sigma_hat_t. The first principal component captures the common factor, and residuals represent market-specific deviations:
+We define the cointegration vector $\beta$ via principal component analysis on $\hat{\Sigma}_t$. The first principal component captures the common factor, and residuals represent market-specific deviations:
 
-z_t^(i) = X_t^(i) - beta^(i) * PC_1(t)
+$$z_t^{(i)} = X_t^{(i)} - \beta^{(i)} \cdot \text{PC}_1(t)$$
 
 The residual series is modeled as an Ornstein-Uhlenbeck process:
 
-dz_t^(i) = -kappa^(i) * z_t^(i) dt + sigma^(i) dW_t
+$$dz_t^{(i)} = -\kappa^{(i)} z_t^{(i)} \,dt + \sigma^{(i)} \,dW_t$$
 
-where kappa^(i) represents mean-reversion speed and sigma^(i) the volatility of deviation.
+where $\kappa^{(i)}$ represents mean-reversion speed and $\sigma^{(i)}$ the volatility of deviation.
 
 The half-life of mean reversion is:
 
-tau_{1/2}^(i) = ln(2) / kappa^(i)
+$$\tau_{1/2}^{(i)} = \frac{\ln(2)}{\kappa^{(i)}}$$
 
 ### 6.3 Signal Generation
 
 A trading signal is generated when the standardized residual exceeds a threshold:
 
-|z_t^(i) / sigma_z^(i)| > Phi^{-1}(1 - alpha/2)
+$$\left|z_t^{(i)} / \sigma_z^{(i)}\right| > \Phi^{-1}(1 - \alpha/2)$$
 
-where sigma_z^(i) is the equilibrium standard deviation and alpha = 0.05.
+where $\sigma_z^{(i)}$ is the equilibrium standard deviation and $\alpha = 0.05$.
 
 **Trade Construction:**
-- If z_t^(i) > threshold => Market i is overvalued relative to cluster
+- If \( z_t^{(i)} > \text{threshold} \), market \(i\) is overvalued relative to cluster.
   - Sell "Yes" shares in market i
   - Hedge by buying proportional "Yes" shares in markets with highest PCA loadings
-- If z_t^(i) < -threshold => Market i is undervalued relative to cluster
+- If \( z_t^{(i)} < -\text{threshold} \), market \(i\) is undervalued relative to cluster.
   - Buy "Yes" shares in market i
   - Hedge by selling proportional "Yes" shares in correlated markets
 
@@ -333,9 +333,9 @@ where sigma_z^(i) is the equilibrium standard deviation and alpha = 0.05.
 
 Correlation structures shift during major events. The strategy employs dual-window estimation:
 
-Sigma_effective = lambda * Sigma_short + (1-lambda) * Sigma_long
+$$\Sigma_{\text{effective}} = \lambda \Sigma_{\text{short}} + (1-\lambda) \Sigma_{\text{long}}$$
 
-where Sigma_short uses a 5-day window, Sigma_long uses 60 days, and lambda = 0.3. If the correlation matrix becomes near-singular, position sizes are reduced.
+where $\Sigma_{\text{short}}$ uses a 5-day window, $\Sigma_{\text{long}}$ uses 60 days, and $\lambda = 0.3$. If the correlation matrix becomes near-singular, position sizes are reduced.
 
 ### 6.5 Cluster Identification Examples
 
@@ -367,7 +367,9 @@ The strategy performs exceptionally well during election week volatilities, deba
 Each strategy operates under individual constraints:
 
 **Maximum Position Size:**
-Q_max = min(0.10 * V_t, (0.05 * Daily Volume) / Expected Participation Rate)
+$$
+Q_{\max} = \min\!\left(0.10\,V_t,\; \frac{0.05 \times \text{Daily Volume}}{\text{Expected Participation Rate}}\right)
+$$
 
 The second term ensures positions do not exceed 5% of average daily volume.
 
@@ -380,7 +382,7 @@ For microstructure strategies, faster stop mechanisms apply when signals reverse
 Across all four strategies, aggregate exposure is constrained by:
 
 **Correlation-Adjusted Risk Budget:**
-Portfolio VaR_95% = 2.5% * V_t
+$$\text{Portfolio VaR}_{95\%} = 2.5\% \cdot V_t$$
 
 **Drawdown Circuit Breakers:**
 - At 10% portfolio drawdown: Reduce all position sizes by 50%
