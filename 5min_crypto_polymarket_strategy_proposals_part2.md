@@ -445,7 +445,7 @@ A meta-layer that **detects the current regime** and **adjusts strategy weights 
 
 At each time $t$, compute:
 
-$\mathbf{x}_t = \begin{bmatrix} \sigma_t^{realized} \\ |r_t^{spot}| \\ \text{spread}_t^{PM} \\ V_t^{PM} \\ |\Delta_t|/K \\ Z_t^{VPIN} \end{bmatrix}$
+$`\mathbf{x}_t = \begin{bmatrix} \sigma_t^{realized} \\ |r_t^{spot}| \\ \text{spread}_t^{PM} \\ V_t^{PM} \\ |\Delta_t|/K \\ Z_t^{VPIN} \end{bmatrix}`$
 
 These features capture: current volatility, absolute return magnitude, Polymarket bid-ask spread, Polymarket volume, distance-to-strike normalized, and CEX toxicity level.
 
