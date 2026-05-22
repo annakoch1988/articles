@@ -619,7 +619,7 @@ $\hat{P}_t^{oracle} = \text{median}(S_t^{e_1}, S_t^{e_2}, S_t^{e_3})$
 $\hat{P}_t^{oracle} = \sum_i w_i \cdot S_t^{e_i}, \quad w_i = V_i / \sum_j V_j$
 
 **TWAP oracle (window $W$):**
-$\hat{P}_t^{oracle, TWAP} = \frac{1}{W} \int_{t-W}^{t} S_u^{feed} du$
+$`\hat{P}_t^{oracle, TWAP} = \frac{1}{W} \int_{t-W}^{t} S_u^{feed} du`$
 
 **Step 3: TWAP determinism exploitation (most powerful case).**
 
