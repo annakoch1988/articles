@@ -341,13 +341,13 @@ $`\hat{S}_{t+h}^B = S_t^B \cdot \exp(\hat{r}_{t, t+h}^B)`$
 
 For a contract on asset $B$ with strike $K$ resolving at $t+h$:
 
-$\hat{\pi}_t^{CLL} = \Phi\left(\frac{\ln(\hat{S}_{t+h}^B / K)}{\hat{\sigma}_{B|A} \sqrt{h}}\right)$
+$`\hat{\pi}_t^{CLL} = \Phi\left(\frac{\ln(\hat{S}_{t+h}^B / K)}{\hat{\sigma}_{B|A} \sqrt{h}}\right)`$
 
-where $\hat{\sigma}_{B|A}$ is the conditional volatility of $B$ given information about $A$:
+where $`\hat{\sigma}_{B|A}`$ is the conditional volatility of $B$ given information about $A$:
 
-$\hat{\sigma}_{B|A} = \sigma_B \sqrt{1 - \rho_{AB}^2}$
+$`\hat{\sigma}_{B|A} = \sigma_B \sqrt{1 - \rho_{AB}^2}`$
 
-where $\rho_{AB}$ is the correlation between $A$ and $B$ returns at the appropriate horizon. The conditional volatility is *lower* than the unconditional volatility because the leader's move explains part of the lagger's variance — this is crucial for correct probability estimation.
+where $`\rho_{AB}`$ is the correlation between $A$ and $B$ returns at the appropriate horizon. The conditional volatility is *lower* than the unconditional volatility because the leader's move explains part of the lagger's variance — this is crucial for correct probability estimation.
 
 **Step 4: Trade the mispricing.**
 
