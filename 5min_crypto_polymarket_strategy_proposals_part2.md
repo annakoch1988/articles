@@ -139,7 +139,7 @@ The predictive power of order book imbalance is one of the most robust findings 
 ### 7.7 Failure Modes and Mitigations
 
 | Risk | Mechanism | Mitigation |
-|------|-----------|
+|------|-----------|------------|
 | **Spoofing / phantom depth** | MMs or bots post large quotes they intend to cancel, creating misleading depth signals | Track fill rate: ratio of executed volume to displayed volume at each level. Exclude levels with fill rate < 10%. |
 | **Regime dependence** | Imbalance predictivity varies with market volatility and participation rate | Estimate $\beta$ in rolling windows; include interaction terms with $\sigma_t$ and $V_t$. |
 | **Adverse latency** | By the time your imbalance signal fires, the book has already moved | Use WebSocket feed with < 50ms latency; measure signal decay half-life. If $t_{1/2} < 2$s, the strategy is latency-constrained. |
