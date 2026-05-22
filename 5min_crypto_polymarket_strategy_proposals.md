@@ -450,7 +450,7 @@ where $d_1 = \frac{\ln(S_t/K) + (\mu - \sigma_t^2/2)\tau}{\sigma_t \sqrt{\tau}}$
 
 ### 5.5 Concrete Example
 
-**Setup:** BTC = \$68,502. Strike = \$68,500. $\tau$ = 60 seconds. $\sigma_t = 0.001$/min.
+**Setup:** BTC = 68,502 USD. Strike = 68,500 USD. $\tau$ = 60 seconds. $\sigma_t = 0.001$/min.
 
 1. $d_1 = \ln(68502/68500) / (0.001 \times 1) = 0.0000292 / 0.001 = 0.0292$
 2. $\hat{\pi} = \Phi(0.0292) = 0.512$
