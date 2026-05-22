@@ -765,7 +765,7 @@ Cluster quotes by update frequency, size consistency, and price level patterns. 
 
 For each identified MM $m$, track their estimated inventory:
 
-$\hat{Q}_m(t) = \hat{Q}_m(t_0) + \sum_{i: \text{trades with } MM_m, t_i \leq t} \text{sign}(trade_i) \cdot q_i$
+$`\hat{Q}_m(t) = \hat{Q}_m(t_0) + \sum_{i: \text{trades with } MM_m, t_i \leq t} \text{sign}(trade_i) \cdot q_i`$
 
 where $\text{sign}(trade_i) = +1$ if the trade was against the MM's bid (MM bought), $-1$ if against their ask (MM sold), and $q_i$ is the trade size. The initial inventory $\hat{Q}_m(t_0)$ can be estimated or assumed zero.
 
@@ -822,8 +822,8 @@ The MM's inventory adjustment is not instantaneous. Estimate the **adjustment la
 
 2. **Predict quote migration:**
    - MM is short YES → needs to buy YES to close → will raise their ask.
-   - Avellaneda-Stoikov: $\Delta p \approx -2.0 \times (0.001)^2 \times (-300) \times 3 = +0.0018$/sec.
-   - Over $\delta_{adj} = 15$s: expected shift = $+0.027$. Mid-price should rise from 0.48 to ~0.507.
+   - Avellaneda-Stoikov: $`\Delta p \approx -2.0 \times (0.001)^2 \times (-300) \times 3 = +0.0018`$/sec.
+   - Over $`\delta_{adj} = 15`$s: expected shift = $+0.027$. Mid-price should rise from 0.48 to ~0.507.
 
 3. **Signal:** $S_t^{MIP} = +0.60$. Direction: BUY YES.
 
