@@ -337,7 +337,7 @@ where $r_{t, t+h}^B$ is the forward return of asset $B$ over horizon $h$.
 
 **Step 3: Predict the lagger's future spot price and compute the lead-lag adjusted fair probability.**
 
-$\hat{S}_{t+h}^B = S_t^B \cdot \exp(\hat{r}_{t, t+h}^B)$
+$`\hat{S}_{t+h}^B = S_t^B \cdot \exp(\hat{r}_{t, t+h}^B)`$
 
 For a contract on asset $B$ with strike $K$ resolving at $t+h$:
 
