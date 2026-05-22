@@ -85,7 +85,7 @@ Trade when $|S_t^{combined}| > \theta_{OBI, entry}$ and expected value exceeds c
 ### 7.4 Empirically Discoverable Parameters
 
 | Parameter | Symbol | Discovery Method | Expected Range |
-|-----------|----------------|
+|-----------|----------------|----------|----------------|
 | Number of depth levels | $K$ | Test $K \in \{1, 2, 3, 5, 10\}$; optimize IC | 1–10 ticks |
 | Depth decay factor | $\alpha$ | Grid search $\alpha \in \{0.3, 0.5, 0.7, 0.9, 1.0\}$ | 0.3–1.0 |
 | Normalization rolling window | $W_I$ | Test 2min, 5min, 15min, 30min | 2–30 minutes |
@@ -214,7 +214,7 @@ Trade contracts where $|\epsilon_t^{VPIN}| > \theta_{VPIN}$ and the Polymarket p
 ### 8.4 Empirically Discoverable Parameters
 
 | Parameter | Symbol | Discovery Method | Expected Range |
-|-----------|----------------|
+|-----------|--------|------------------|----------------|
 | Volume bucket size | $V_{bucket}$ | Test 1, 5, 10, 50 BTC; choose where VPIN autocorrelation is strongest | 1–50 BTC |
 | VPIN trailing window | $N$ | Test 50, 100, 200, 500 buckets | 50–500 |
 | VPIN normalization window | $W_{VPIN}$ | Rolling window for $\mu, \sigma$; test 30, 60, 240min | 30–240 minutes |
@@ -358,7 +358,7 @@ Trade when $|\epsilon_t^{CLL}| > \theta_{CLL}$ and the leader's move is statisti
 ### 9.4 Empirically Discoverable Parameters
 
 | Parameter | Symbol | Discovery Method | Expected Range |
-|-----------|--------|
+|-----------|--------|------------------|----------------|
 | Asset pairs | $(A, B)$ | Compute CCF across all listed crypto pairs; select pairs with stable lead-lag | BTC→ETH, ETH→SOL, BTC→all |
 | Lead-lag estimation window | $W_{LL}$ | Rolling window for CCF; test 1hr, 4hr, 24hr | 1–24 hours |
 | Prediction horizon | $h$ | Test 30s, 60s, 120s, 300s; maximize $\beta_{lead}$ significance | 30–300 seconds |
@@ -410,7 +410,7 @@ Trade when $|\epsilon_t^{CLL}| > \theta_{CLL}$ and the leader's move is statisti
 ### 9.7 Failure Modes and Mitigations
 
 | Risk | Mechanism | Mitigation |
-|------|-----------|
+|------|-----------|------------|
 | **Leader-lag reversal** | In some regimes, ETH leads BTC (e.g., DeFi-specific events) | Monitor CCF in real-time; if CCF flips sign, pause the strategy or swap leader/lag assignment. |
 | **Correlation breakdown** | During idiosyncratic events (exchange hacks), cross-correlations collapse | Use DCC-GARCH to weight signals; downweight when $\rho_t$ drops below threshold. |
 | **Contract availability** | Polymarket may not list 5-min contracts on both leader and lagger simultaneously | Maintain a universe of monitored assets; be ready when opportunities arise. |
@@ -498,7 +498,7 @@ with $\alpha_w \in [0.2, 0.5]$ to prevent rapid regime-triggered weight oscillat
 ### 10.4 Empirically Discoverable Parameters
 
 | Parameter | Symbol | Discovery Method | Expected Range |
-|-----------|--------|
+|-----------|--------|------------------|----------------|
 | Number of regimes | $R$ | BIC / AIC selection over $R \in \{2, 3, 4, 5, 6\}$ | 3–5 |
 | Feature set | $\mathbf{x}_t$ | Compare feature combinations via BIC of HMM fit | 4–8 features |
 | HMM re-estimation frequency | $f_{HMM}$ | Re-fit parameters every 1hr, 4hr, 24hr, or weekly | 1–24 hours |
@@ -559,7 +559,7 @@ with $\alpha_w \in [0.2, 0.5]$ to prevent rapid regime-triggered weight oscillat
 ### 10.7 Failure Modes and Mitigations
 
 | Risk | Mechanism | Mitigation |
-|------|-----------|
+|------|-----------|------------|
 | **HMM overfitting** | Too many regimes fit noise rather than genuine states | Use BIC for selection; limit $R \leq 5$; regularize covariance matrices. |
 | **Regime identification lag** | Forward algorithm has inherent lag — opportunity may pass before detection | Use predictive regime features (leading indicators): rising VPIN predicts transition TO volatile. |
 | **Non-stationary regimes** | Character of "trending" or "volatile" evolves over time | Re-estimate HMM every 1–4 hours; use Bayesian updating rather than hard re-fit. |
@@ -660,7 +660,7 @@ Trade when $|\epsilon_t^{ROM}| > \theta_{ROM}$, with aggressive sizing when $|\e
 ### 11.4 Empirically Discoverable Parameters
 
 | Parameter | Symbol | Discovery Method | Expected Range |
-|-----------|--------|
+|-----------|--------|------------------|----------------|
 | Oracle divergence threshold | $\epsilon_{oracle}$ | Analyze historical oracle-vs-spot divergence; find where mispricing is exploitable | $5–50 |
 | Minimum $\tau$ for oracle signal | $\tau_{oracle}$ | Trade only when resolution is imminent and TWAP is largely determined | 15–90 seconds |
 | Oracle TWAP window | $W$ | Determined by contract terms (observe and document) | Varies |
@@ -716,7 +716,7 @@ This strategy is grounded in **market microstructure theory for deterministic/ne
 ### 11.7 Failure Modes and Mitigations
 
 | Risk | Mechanism | Mitigation |
-|------|-----------|
+|------|-----------|------------|
 | **Oracle mechanism change** | Polymarket updates terms or switches oracle provider | Monitor contract terms for updates; maintain a contract metadata database with version history. |
 | **Oracle feed outage** | Oracle's underlying price feed goes down, triggering fallback mechanisms | Monitor all component feeds; if any feed is stale (> 60s), flag uncertainty and reduce position. |
 | **Dispute resolution** | Optimistic oracles (UMA) have dispute windows that can flip outcomes | Only trade ROM on deterministic oracles, or where the oracle margin is too large for a profitable dispute. |
@@ -801,7 +801,7 @@ The MM's inventory adjustment is not instantaneous. Estimate the **adjustment la
 ### 12.4 Empirically Discoverable Parameters
 
 | Parameter | Symbol | Discovery Method | Expected Range |
-|-----------|--------|
+|-----------|--------|------------------|----------------|
 | MM identification method | — | Compare clustering (DBSCAN, time-series corr) | Data-dependent |
 | Max inventory estimate | $Q_m^{max}$ | 95th percentile of historical absolute inventory | Data-dependent |
 | Inventory pressure threshold | $IP_{threshold}$ | Grid search; optimize Sharpe of MIP signal | 0.3–0.7 |
@@ -849,7 +849,7 @@ The MM's inventory adjustment is not instantaneous. Estimate the **adjustment la
 ### 12.7 Failure Modes and Mitigations
 
 | Risk | Mechanism | Mitigation |
-|------|-----------|
+|------|-----------|------------|
 | **MM identification error** | Incorrectly clustering quotes from different entities | Use multiple features (timing, size, price levels); validate with internal consistency checks. |
 | **Inventory estimation drift** | Cumulative estimate drifts from reality due to missed trades | Reset inventory estimate at start of each new contract. |
 | **MM algorithm change** | MM updates their algo, changing $\gamma_m$ or inventory limits | Re-estimate parameters every session; monitor for behavioral regime changes. |
@@ -866,7 +866,7 @@ The MM's inventory adjustment is not instantaneous. Estimate the **adjustment la
 *(Estimated qualitative correlations; measure empirically in backtest)*
 
 | | SLA | PMR | MPR | VIT | TDE | CRV | OBI | VPX | CLL | HMM | ROM | MIP |
-|---|----|----|----|----|
+|---|----|----|----|----|----|----|---|---|----|---|----|---|
 | **SLA** | 1.0 | -0.2 | 0.1 | 0.3 | 0.4 | 0.1 | 0.2 | 0.1 | 0.2 | 0.0 | 0.0 | 0.1 |
 | **PMR** | | 1.0 | 0.0 | -0.1 | -0.3 | 0.0 | -0.1 | 0.1 | -0.1 | 0.0 | -0.2 | -0.1 |
 | **MPR** | | | 1.0 | 0.2 | 0.3 | 0.7 | 0.1 | 0.1 | 0.1 | 0.0 | 0.1 | 0.1 |
@@ -923,7 +923,7 @@ where $w_i(t)$ is the HMM-adjusted weight. Enter when $|S_{ensemble}| > \theta_{
 ### 14.1 Additional Data Requirements for Part II Strategies
 
 | Strategy | New Data Source | Latency Requirement |
-|----------------|-------------------|
+|----------------|-------------------|-------------|
 | OBI | Polymarket L2 order book (full depth, all levels) | < 20ms |
 | VPIN-X | CEX trade feed with aggressor flags (Binance, Coinbase) | < 50ms |
 | CLL | Multi-asset CEX spot feeds (BTC, ETH, SOL, etc.) | < 20ms |
