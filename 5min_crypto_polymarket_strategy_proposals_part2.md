@@ -134,7 +134,7 @@ The predictive power of order book imbalance is one of the most robust findings 
 - **Cartea, Jaimungal & Penalva (2015):** Formalize the imbalance-price impact relationship in a stochastic control framework, deriving optimal execution strategies that internalize order flow imbalance.
 - **Lipton, Pesavento & Sotiropoulos (2013):** Demonstrate that trade-sign imbalance is a mean-reverting process whose deviation predicts short-term direction.
 
-**Key validation statistic:** Compute the IC (information coefficient) of $\tilde{I}(t)$ vs. $\Delta p_{t, t+h}$ over multiple horizon lengths $h$. Target: IC > 0.05 at $h = 15$s. Also test the **Granger causality** from $\tilde{I}$ to $p$ — the imbalance should Granger-cause price changes but not vice versa (at short horizons).
+**Key validation statistic:** Compute the IC (information coefficient) of $`\tilde{I}(t)`$ vs. $`\Delta p_{t, t+h}`$ over multiple horizon lengths $`h`$. Target: IC > 0.05 at $`h = 15`$s. Also test the **Granger causality** from $\tilde{I}$ to $p$ — the imbalance should Granger-cause price changes but not vice versa (at short horizons).
 
 ### 7.7 Failure Modes and Mitigations
 
