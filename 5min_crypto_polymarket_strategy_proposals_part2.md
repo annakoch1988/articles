@@ -514,7 +514,7 @@ with $\alpha_w \in [0.2, 0.5]$ to prevent rapid regime-triggered weight oscillat
 
 1. **Feature observation** at $t$:
    - $\sigma_t = 0.0018$/min (elevated), $|r_t^{spot}| = 0.0022$ (large 30s move)
-   - spread$_t^{PM} = 0.06$ (wide), $V_t^{PM} = 500$/min (high)
+   - spread$`_t^{PM} = 0.06`$ (wide), $V_t^{PM} = 500$/min (high)
    - $|\Delta_t|/K = 0.001$ (near strike), $Z_t^{VPIN} = 1.8$
 
 2. **HMM posterior:**
@@ -531,7 +531,7 @@ with $\alpha_w \in [0.2, 0.5]$ to prevent rapid regime-triggered weight oscillat
    | TDE | 1.0 | 1.5 | 0.3 | 3.5 |
    | OBI | 1.2 | 1.0 | -0.5 | 2.8 |
 
-4. **Dynamic allocation** (using $\lambda^+ = \max(\lambda, 0)$):
+4. **Dynamic allocation** (using $`\lambda^+ = \max(\lambda, 0)`$):
    - SLA: $0.05(0.5) + 0.70(3.2) + 0.20(0.8) + 0.05(1.0) = 2.475$
    - PMR: $0.05(2.8) + 0.70(0) + 0.20(0) + 0.05(1.5) = 0.215$
    - TDE: $0.05(1.0) + 0.70(1.5) + 0.20(0.3) + 0.05(3.5) = 1.335$
@@ -645,7 +645,7 @@ When $\tau$ is small relative to $W$, this constraint becomes very restrictive, 
 
 **Step 4: Compute oracle-aware fair probability.**
 
-$\hat{\pi}_t^{ROM} = \Phi\left(\frac{\ln(S_t^{feed} / K^*)}{\sigma_{feed} \sqrt{\tau/60}}\right)$
+$`\hat{\pi}_t^{ROM} = \Phi\left(\frac{\ln(S_t^{feed} / K^*)}{\sigma_{feed} \sqrt{\tau/60}}\right)`$
 
 where $K^*$ is the effective threshold for the remaining TWAP portion:
 
