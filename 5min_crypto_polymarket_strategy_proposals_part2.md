@@ -205,11 +205,11 @@ $`\frac{\sigma_{t+h}^{realized} - \sigma_t}{\sigma_t} = \beta_{VPIN} \cdot Z_t^{
 
 **Step 4: Compute new fair probabilities and trade.**
 
-Re-compute $\hat{\pi}_t$ for all active 5-minute contracts using $\hat{\sigma}_{t+h}$ instead of $\sigma_t$. The **volatility-adjusted mispricing** is:
+Re-compute $`\hat{\pi}_t$ for all active 5-minute contracts using $\hat{\sigma}_{t+h}`$ instead of $`\sigma_t`$. The **volatility-adjusted mispricing** is:
 
-$\epsilon_t^{VPIN} = \hat{\pi}_t(\hat{\sigma}_{t+h}) - p_t$
+$`\epsilon_t^{VPIN} = \hat{\pi}_t(\hat{\sigma}_{t+h}) - p_t`$
 
-Trade contracts where $|\epsilon_t^{VPIN}| > \theta_{VPIN}$ and the Polymarket price has not yet adjusted.
+Trade contracts where $`|\epsilon_t^{VPIN}| > \theta_{VPIN}`$ and the Polymarket price has not yet adjusted.
 
 ### 8.4 Empirically Discoverable Parameters
 
