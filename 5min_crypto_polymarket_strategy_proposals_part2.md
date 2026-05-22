@@ -465,7 +465,7 @@ Estimate $\{\boldsymbol{\mu}_k, \Sigma_k, a_{ij}\}$ via Baum-Welch (EM algorithm
 
 At time $t$, compute the posterior regime probabilities using the forward algorithm:
 
-$\gamma_k(t) = P(s_t = k | \mathbf{x}_{1:t}) \propto \sum_j \gamma_j(t-1) \cdot a_{jk} \cdot \mathcal{N}(\mathbf{x}_t | \boldsymbol{\mu}_k, \Sigma_k)$
+$`\gamma_k(t) = P(s_t = k | \mathbf{x}_{1:t}) \propto \sum_j \gamma_j(t-1) \cdot a_{jk} \cdot \mathcal{N}(\mathbf{x}_t | \boldsymbol{\mu}_k, \Sigma_k)`$
 
 Normalize so that $\sum_k \gamma_k(t) = 1$.
 
@@ -691,7 +691,7 @@ Trade when $|\epsilon_t^{ROM}| > \theta_{ROM}$, with aggressive sizing when $|\e
    $20 \times P_{remaining} > 30 \times 68500 - 684800 = 2055000 - 684800 = 1370200$
    $P_{remaining} > 68510$
    - Chainlink would need to jump from $68,485 to >$68,510 in 20 seconds — a +$25 move.
-   - With $\sigma_{Chainlink} \approx \$15$/20s: $P(P > 68510) = \Phi(-25/15) = \Phi(-1.67) = 0.048$.
+   - With $`\sigma_{Chainlink} \approx \$15`$/20s: $P(P > 68510) = \Phi(-25/15) = \Phi(-1.67) = 0.048$.
    - $\hat{\pi}_t^{ROM} \approx 0.05$.
 
 5. **Mispricing:** $\epsilon = 0.05 - 0.55 = -0.50$. **Extraordinary edge.**
