@@ -953,7 +953,7 @@ where $w_i(t)$ is the HMM-adjusted weight. Enter when $|S_{ensemble}| > \theta_{
 ### 14.3 Updated Risk Management for New Strategies
 
 | Risk | Trigger | Action |
-|------|---------|
+|------|---------|--------|
 | OBI spoofing detection | Fill rate at Level 1 drops below 5% for > 30 seconds | Disable OBI; set weight to 0 |
 | MM identification loss | Quote clustering fails to identify dominant MM for > 5 minutes | Disable MIP; set weight to 0 |
 | HMM novelty detection | $\max_k \gamma_k(t) < 0.35$ for > 2 minutes | Halve all position sizes; alert operator |
@@ -1013,7 +1013,7 @@ Additional works supporting Part II strategies (beyond the 8 references from Par
 ## Appendix F: Glossary of New Methods and Concepts (Part II)
 
 | Method / Concept | Description | Used In |
-|-------------------|---------|
+|-------------------|---------|-----|
 | **Order Book Imbalance** | Ratio of bid to ask depth at various levels; predicts short-term direction | OBI |
 | **VPIN** | Volume-Synchronized Probability of Informed Trading; measures toxicity | VPIN-X |
 | **Cross-Correlation Function** | Correlation between two series at different lags; identifies lead-lag | CLL |
