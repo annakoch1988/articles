@@ -83,7 +83,7 @@ $$\epsilon_t = \hat{\pi}_t - p_t$$
 **Setup:** BTC spot = $68,450. Polymarket contract: "Will BTC be above $68,500 at 14:05 UTC?" (resolution in 3 minutes).
 
 1. Current spot moves to $68,520 on Binance (a +$70 move in 15 seconds).
-2. Compute $\hat{\pi}_t$: $\sigma_t = 0.001$ (per minute), $\tau = 180$s. $\ln(68520/68500) = 0.000292$. 
+2. Compute $\hat{\pi}_t$: $\sigma_t = 0.001$ (per minute), $\tau = 180$ s. $\ln(68520/68500) = 0.000292$. 
    $\hat{\pi}_t = \Phi(0.000292 / (0.001 \times \sqrt{3})) \approx \Phi(0.169) \approx 0.567$
 3. Polymarket still shows YES at bid=0.42, ask=0.46 (implied prob ~0.44).
 4. Signal: $\epsilon_t = 0.567 - 0.44 = 0.127$. This exceeds $\theta_{entry} = 0.05$.
@@ -450,7 +450,7 @@ where $d_1 = \frac{\ln(S_t/K) + (\mu - \sigma_t^2/2)\tau}{\sigma_t \sqrt{\tau}}$
 
 ### 5.5 Concrete Example
 
-**Setup:** BTC = $68,502. Strike = $68,500. $\tau$ = 60 seconds. $\sigma_t = 0.001$/min.
+**Setup:** BTC = \$68,502. Strike = \$68,500. $\tau$ = 60 seconds. $\sigma_t = 0.001$/min.
 
 1. $d_1 = \ln(68502/68500) / (0.001 \times 1) = 0.0000292 / 0.001 = 0.0292$
 2. $\hat{\pi} = \Phi(0.0292) = 0.512$
