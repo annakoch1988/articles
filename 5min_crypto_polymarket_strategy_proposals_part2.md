@@ -459,7 +459,7 @@ The transition model is a Markov chain:
 
 $P(s_t = j | s_{t-1} = i) = a_{ij}$
 
-Estimate $\{\boldsymbol{\mu}_k, \Sigma_k, a_{ij}\}$ via Baum-Welch (EM algorithm) on historical feature data.
+Estimate $`\{\boldsymbol{\mu}_k, \Sigma_k, a_{ij}\}`$ via Baum-Welch (EM algorithm) on historical feature data.
 
 **Step 3: Online regime inference.**
 
@@ -687,7 +687,7 @@ Trade when $|\epsilon_t^{ROM}| > \theta_{ROM}$, with aggressive sizing when $|\e
 
 4. **Oracle-aware fair probability:**
    - For TWAP to exceed $68,500, need:
-   $\frac{10 \times 68480 + 20 \times P_{remaining}}{30} > 68500$
+   $`\frac{10 \times 68480 + 20 \times P_{remaining}}{30} > 68500`$
    $20 \times P_{remaining} > 30 \times 68500 - 684800 = 2055000 - 684800 = 1370200$
    $P_{remaining} > 68510$
    - Chainlink would need to jump from $68,485 to >$68,510 in 20 seconds — a +$25 move.
