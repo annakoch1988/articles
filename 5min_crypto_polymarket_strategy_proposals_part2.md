@@ -678,7 +678,7 @@ Trade when $|\epsilon_t^{ROM}| > \theta_{ROM}$, with aggressive sizing when $|\e
    - Observed TWAP so far (14:04:30 to 14:04:40, 10 seconds): average = $68,480.
    - Remaining: 20 seconds of Chainlink price, currently $68,485.
    - If Chainlink stays at $68,485:
-   $\hat{P}_T^{TWAP} = \frac{10 \times 68480 + 20 \times 68485}{30} = \frac{684800 + 1369700}{30} = 68483.33$
+   $`\hat{P}_T^{TWAP} = \frac{10 \times 68480 + 20 \times 68485}{30} = \frac{684800 + 1369700}{30} = 68483.33`$
    - This is **below** $K = 68,500$. Contract resolves NO.
 
 2. **Binance spot** = $68,510 (above strike). Traders watching Binance think "YES is likely."
