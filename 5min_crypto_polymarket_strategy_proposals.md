@@ -595,7 +595,7 @@ Polymarket WebSocket --> Order Book Engine --> Signal Generator --> Risk Manager
 | Metric | Formula | Target |
 |--------|---------|--------|
 | Sharpe Ratio (per trade) | $\mu_r / \sigma_r$ (annualized) | > 2.0 |
-| Hit Rate | $\#\{r_i > 0\} / N$ | > 55% |
+| Hit Rate | $`\#\{r_i > 0\} / N`$ | > 55% |
 | Profit Factor | $\sum r_i^+ / \lvert\sum r_i^-\rvert$ | > 1.5 |
 | Max Drawdown | $\max_t (peak_t - trough_t)$ | < 15% of capital |
 | Average Trade PnL | $\bar{r}$ net of costs | > 0.01 per share |
