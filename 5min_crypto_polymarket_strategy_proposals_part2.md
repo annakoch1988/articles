@@ -102,7 +102,7 @@ Trade when $|S_t^{combined}| > \theta_{OBI, entry}$ and expected value exceeds c
 1. **Read the Polymarket L2 book** for this contract:
 
    | Level $k$ | Bid Price | Bid Vol | Ask Price | Ask Vol | $I_k$ |
-   |-----------|-----------|-------|
+   |-----------|-----------|---------|-----------|---------|-------|
    | 1 | 0.37 | 450 | 0.39 | 120 | +0.579 |
    | 2 | 0.36 | 300 | 0.40 | 200 | +0.200 |
    | 3 | 0.35 | 250 | 0.41 | 350 | -0.167 |
