@@ -284,7 +284,7 @@ The academic foundation for VPIN is extensive:
 ### 8.7 Failure Modes and Mitigations
 
 | Risk | Mechanism | Mitigation |
-|------|-----------|
+|------|-----------|------------|
 | **VPIN false alarms** | High toxicity does not always lead to a large vol move | Require VPIN spike AND a minimum spot displacement within the last 30s (confirmation filter). |
 | **Latency of VPIN computation** | VPIN requires bucket accumulation, introducing inherent lag | Use smaller bucket sizes and shorter windows; accept noisier VPIN for faster signal. |
 | **CEX selection mismatch** | VPIN on Binance may not predict Polymarket-relevant vol if oracle uses different feed | Compute VPIN on the exact CEX(s) used by the Polymarket oracle. |
