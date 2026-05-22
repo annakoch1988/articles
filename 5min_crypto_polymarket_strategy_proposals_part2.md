@@ -197,11 +197,11 @@ A VPIN spike is detected when $Z_t^{VPIN} > z_{VPIN, spike}$.
 
 When VPIN spikes, predict the new volatility regime:
 
-$\hat{\sigma}_{t+h} = \sigma_t + \beta_{VPIN} \cdot Z_t^{VPIN} \cdot \sigma_t$
+$`\hat{\sigma}_{t+h} = \sigma_t + \beta_{VPIN} \cdot Z_t^{VPIN} \cdot \sigma_t`$
 
-where $\beta_{VPIN}$ is the regression coefficient from:
+where $`\beta_{VPIN}`$ is the regression coefficient from:
 
-$\frac{\sigma_{t+h}^{realized} - \sigma_t}{\sigma_t} = \beta_{VPIN} \cdot Z_t^{VPIN} + \epsilon$
+$`\frac{\sigma_{t+h}^{realized} - \sigma_t}{\sigma_t} = \beta_{VPIN} \cdot Z_t^{VPIN} + \epsilon`$
 
 **Step 4: Compute new fair probabilities and trade.**
 
