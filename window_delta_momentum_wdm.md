@@ -131,10 +131,12 @@ The open price $S_{t_0}$ is the first spot price observation whose timestamp fal
 
 The expected edge per share, net of taker fees, is:
 
-$$\text{edge} = \begin{cases}
+```math
+\text{edge} = \begin{cases}
 (1 - p_{ask}) - \text{fee\_per\_share} & \text{if } D_t = +1 \ (\text{BUY YES}) \\
 (1 - p_{bid}) - \text{fee\_per\_share} & \text{if } D_t = -1 \ (\text{BUY NO})
-\end{cases}$$
+\end{cases}
+```
 
 where fee per share follows the Polymarket fee schedule:
 
