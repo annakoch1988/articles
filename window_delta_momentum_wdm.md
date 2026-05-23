@@ -138,7 +138,7 @@ $$\text{edge} = \begin{cases}
 
 where fee per share follows the Polymarket fee schedule:
 
-$$\text{fee\_per\_share} = \text{fee\_rate} \times p \times (1 - p)$$
+$`\text{fee\_per\_share} = \text{fee\_rate} \times p \times (1 - p)`$
 
 Trade is executed only if $\text{edge} > 0$.
 
