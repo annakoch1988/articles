@@ -199,7 +199,7 @@ When entry timing is close to resolution, the strategy does not poll; it evaluat
 4. **Timing check:** $\tau = 11$ s. $\tau_{min} = 5$ s, $\tau_{max} = 15$ s. $5 \leq 11 \leq 15$. OK.
 5. **Edge calculation:**
    - Gross payout: YES resolves to $1.00 → gain per share = $1.00 - $0.55 = $0.45.
-   - Fee: $\text{fee\_rate} \times p \times (1 - p) = 0.07 \times 0.55 \times 0.45 = 0.0173$.
+   - Fee: $`\text{fee\_rate} \times p \times (1 - p) = 0.07 \times 0.55 \times 0.45 = 0.0173`$.
    - Net edge = $0.45 - 0.0173 = 0.4327 \gg 0$.
 6. **Confidence:** $c = \min(0.00161 / 0.003, 1.0) = \min(0.537, 1.0) = 0.537$.
 7. **Action:** BUY YES at $0.55, size = $q_{max} = 100$ shares.
