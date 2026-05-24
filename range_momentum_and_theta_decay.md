@@ -245,15 +245,15 @@ $`\epsilon_t = \hat{\pi}_t - p_t`$
 
 Entry when:
 
-$`|\epsilon_t| > \theta_{entry} \quad \textand} \quad \textsign}(\Theta_t) = \textsign}(\epsilon_t) \quad \textand} \quad \tau < \tau_{\max}`$
+$`|\epsilon_t| > \theta_{entry} \quad \text{and} \quad \text{sign}(\Theta_t) = \text{sign}(\epsilon_t) \quad \text{and} \quad \tau < \tau_{\max}`$
 
 This double condition is critical: we require both that the market is *already* mispriced (level check) and that the mispricing is *expected to grow* (theta direction check). A mispricing that theta is pushing *against* (e.g., $`\hat{\pi}_t > p_t`$ but $`\Theta_t < 0`$) is a *converging* mispricing — gamma risk, not theta edge.
 
 **Step 3: Signal mapping.**
 
 $`S_t^{TDE} = \begin{cases}
-+1 & \text{if } \epsilon_t > \theta_{entry} \text and } \Theta_t > 0 \text and } \tau < \tau_{\max} \\[4pt]
--1 & \text{if } \epsilon_t < -\theta_{entry} \text and } \Theta_t < 0 \text and } \tau < \tau_{\max} \\[4pt]
++1 & \text{if} \epsilon_t > \theta_{entry} \text{and} \Theta_t > 0 \text{and} \tau < \tau_{\max} \\[4pt]
+-1 & \text{if} \epsilon_t < -\theta_{entry} \text{and} \Theta_t < 0 \text{and} \tau < \tau_{\max} \\[4pt]
 0 & \textotherwise}
 \end{cases}`$
 
