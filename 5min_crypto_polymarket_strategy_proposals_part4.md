@@ -50,11 +50,11 @@ Part IV introduces six new strategies (19–24), extending the ensemble to 24 st
 
 The Black-Scholes binary call used throughout Parts I–III assumes spot follows a geometric Brownian motion: continuous paths, no jumps. Crypto markets exhibit frequent discontinuities — liquidation cascades, whale executions, news-driven spikes — that violate this assumption at the 5-minute scale. Merton (1976) introduced a jump-diffusion model where spot follows:
 
-$$`dS_t = \mu S_t dt + \sigma S_t dW_t + S_{t-} d\left(\sum_{i=1}^{N_t} (e^{J_i} - 1)\right)`$$
+$`dS_t = \mu S_t dt + \sigma S_t dW_t + S_{t-} d\left(\sum_{i=1}^{N_t} (e^{J_i} - 1)\right)`$
 
 The binary call price under jump-diffusion is a weighted average of BS prices conditional on the number of jumps:
 
-$$`\hat{\pi}_t^{JD} = \sum_{n=0}^{\infty} \frac{e^{-\lambda_J \tau} (\lambda_J \tau)^n}{n!} \cdot \Phi\left( \frac{\ln(S_t/K) + (r - \sigma^2/2)\tau + n\mu_J}{\sqrt{\sigma^2 \tau + n\sigma_J^2}} \right)`$$
+$`\hat{\pi}_t^{JD} = \sum_{n=0}^{\infty} \frac{e^{-\lambda_J \tau} (\lambda_J \tau)^n}{n!} \cdot \Phi\left( \frac{\ln(S_t/K) + (r - \sigma^2/2)\tau + n\mu_J}{\sqrt{\sigma^2 \tau + n\sigma_J^2}} \right)`$
 
 where $`\mu_J`$ and $`\sigma_J^2`$ are the mean and variance of jump sizes (log-returns), and $`\lambda_J`$ is the jump intensity per unit time.
 
@@ -71,13 +71,13 @@ The key insight: JDM does not require a jump to occur during the window. It requ
 
 From the 1-second Binance spot price stream, compute log-returns $`r_i = \ln(S_{t_i} / S_{t_{i-1}})`$ over 1-second intervals. Detect jumps using the Lee-Mykland (2008) statistic:
 
-$$`\mathcal{J}_i = \frac{|r_i|}{\hat{\sigma}_{i-1}}`$$
+$`\mathcal{J}_i = \frac{|r_i|}{\hat{\sigma}_{i-1}}`$
 
 where $`\hat{\sigma}_{i-1}`$ is a local volatility estimate (e.g., bipower variation over the preceding 60 seconds). A jump is flagged when $`|\mathcal{J}_i| > \Phi^{-1}(1 - \alpha/2)`$ for significance level $`\alpha`$ (e.g., 0.01).
 
 Maintain a rolling count of jumps $`N_J(t, w_J)`$ over window $`w_J`$ (e.g., 600 seconds). Estimate:
 
-$$`\hat{\lambda}_J(t) = \frac{N_J(t, w_J)}{w_J}`$$
+$`\hat{\lambda}_J(t) = \frac{N_J(t, w_J)}{w_J}`$
 
 **Step 2: Compute JD fair probability.**
 
@@ -91,11 +91,11 @@ $$`\epsilon_t^{JD} = \hat{\pi}_t^{JD} - \hat{\pi}_t^{BS}`$$
 
 where $`\hat{\pi}_t^{BS}`$ is the standard Black-Scholes binary call (same $`\sigma`$, no jumps). The signal is:
 
-$$`S_t^{JDM} = \begin{cases}
+$`S_t^{JDM} = \begin{cases}
 +1 & \text{if } \epsilon_t^{JD} > \theta_{JDM} \text{ and } \tau > \tau_{\min} \\[4pt]
 -1 & \text{if } \epsilon_t^{JD} < -\theta_{JDM} \text{ and } \tau > \tau_{\min} \\[4pt]
 0 & \text{otherwise}
-\end{cases}`$$
+\end{cases}`$
 
 **Step 4: Trade the divergence.**
 
@@ -105,10 +105,10 @@ For $`S_t^{JDM} = -1`$: BS over-prices YES. BUY NO at $`p_t^{bid}`$.
 
 Edge calculation follows the standard framework:
 
-$$`\text{edge} = \begin{cases}
+$`\text{edge} = \begin{cases}
 \hat{\pi}_t^{JD} - p_t^{ask} - f \times p_t^{ask} \times (1 - p_t^{ask}) & \text{BUY YES} \\[4pt]
 (1 - \hat{\pi}_t^{JD}) - p_t^{bid} - f \times p_t^{bid} \times (1 - p_t^{bid}) & \text{BUY NO}
-\end{cases}`$$
+\end{cases}`$
 
 ### 19.4 Empirically Discoverable Parameters
 
@@ -131,11 +131,11 @@ $$`\text{edge} = \begin{cases}
 3. **BS fair probability:** $`d_1 = \ln(68400/68500) / (0.001 \times \sqrt{2}) = -0.00146 / 0.001414 = -1.032`$. $`\hat{\pi}^{BS} = \Phi(-1.032) = 0.151`$.
 4. **JD fair probability:** With $`\lambda_J = 0.6`$ jumps/min = $`0.01`$ jumps/sec, $`\lambda_J \tau = 1.2`$. Summing $`n = 0, 1, 2`$:
 
-$$`\begin{aligned}
+$`\begin{aligned}
 n=0:\ & e^{-1.2} \cdot \Phi(-1.032) = 0.301 \times 0.151 = 0.045 \\
 n=1:\ & e^{-1.2} \times 1.2 \times \Phi\left(\frac{-1.032 \times 0.001414}{\sqrt{0.001414^2 + 0.003^2}}\right) = 0.361 \times 0.166 = 0.060 \\
 n=2:\ & e^{-1.2} \times 1.2^2/2 \times \Phi\left(\frac{-1.032 \times 0.001414}{\sqrt{0.001414^2 + 2 \times 0.003^2}}\right) = 0.217 \times 0.189 = 0.041
-\end{aligned}`$$
+\end{aligned}`$
 
 Sum: $`\hat{\pi}^{JD} = 0.045 + 0.060 + 0.041 = 0.146`$.
 
@@ -208,11 +208,11 @@ From a blockchain data provider (e.g., Glassnode, CoinMetrics, or a direct node 
 
 For each metric, compute deviation from recent baseline:
 
-$$`Z_t^F = \frac{F_t^{net} - \mu_F(w_F)}{\sigma_F(w_F)}`$$
+$`Z_t^F = \frac{F_t^{net} - \mu_F(w_F)}{\sigma_F(w_F)}`$
 
-$$`Z_t^W = \frac{W_t - \mu_W(w_W)}{\sigma_W(w_W)}`$$
+$`Z_t^W = \frac{W_t - \mu_W(w_W)}{\sigma_W(w_W)}`$
 
-$$`Z_t^V = \frac{V_t^{AA} - \mu_V(w_V)}{\sigma_V(w_V)}`$$
+$`Z_t^V = \frac{V_t^{AA} - \mu_V(w_V)}{\sigma_V(w_V)}`$
 
 where $`\mu, \sigma`$ are rolling statistics over windows $`w_k`$ (e.g., 30 minutes).
 
@@ -234,7 +234,7 @@ $`S_t^{ONC} = \begin{cases}
 
 The expected spot return over the next $`h`$ seconds from the ONC signal is:
 
-$$`\hat{r}_{t, t+h} = \alpha_{ONC} + \gamma_{ONC} \cdot \Psi_t^{ONC}`$$
+$`\hat{r}_{t, t+h} = \alpha_{ONC} + \gamma_{ONC} \cdot \Psi_t^{ONC}`$
 
 Translate to adjusted fair probability:
 
@@ -398,7 +398,7 @@ For BUY YES (token underpriced), reverse the positions.
 
 **Revised example (narrower strikes):** Suppose Deribit has strikes 68,400 and 68,600 for the 14:10 expiry. $`C(68400) = 0.38`$, $`C(68600) = 0.15`$.
 
-$$`\Pi^{syn} = \frac{0.15 - 0.38}{68600 - 68400} = \frac{-0.23}{200} = -0.00115`$$
+$`\Pi^{syn} = \frac{0.15 - 0.38}{68600 - 68400} = \frac{-0.23}{200} = -0.00115`$
 
 Still negative — this reflects that the call spread is not a pure binary but contains intrinsic value offset.
 
