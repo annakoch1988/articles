@@ -13,8 +13,8 @@
 
 | Symbol | Meaning |
 |--------|---------|
-| `$`S_t`$` | Spot crypto price (from Binance) at time `$`t`$` |
-| `$`t_0`$` | Window open time (5-minute boundary) |
+| $`S_t`$ | Spot crypto price (from Binance) at time $`t`$ |
+| $`t_0`$ | Window open time (5-minute boundary) |
 | `$`T`$` | Window close / resolution time (`$`T = t_0 + 300`$`) |
 | `$`\tau = T - t`$` | Seconds remaining to resolution |
 | `$`p_t`$` | Polymarket YES share mid-price at time `$`t`$` |
