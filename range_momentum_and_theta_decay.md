@@ -264,7 +264,7 @@ $`S_t^{TDE} = \begin{cases}
 
 TDE confidence is driven by theta magnitude — larger theta means faster convergence, which means more certainty in the directional prediction:
 
-$`C_t = \min\!\left(\frac{|\epsilon_t|}{\epsilon_{sat}},\; 1\right) \;\times\; \min\!\left(\frac|\Theta_t|}{\Theta_{sat}},\; 1\right)`$
+$`C_t = \min\!\left(\frac{|\epsilon_t|}{\epsilon_{sat}},\; 1\right) \;\times\; \min\!\left(\frac{|\Theta_t|}{\Theta_{sat}},\; 1\right)`$
 
 where $`\epsilon_{sat}`$ (e.g., 0.15) and $`\Theta_{sat}`$ (e.g., 0.005 probability/sec) are saturation thresholds.
 
