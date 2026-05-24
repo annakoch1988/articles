@@ -245,7 +245,9 @@ $`\epsilon_t = \hat{\pi}_t - p_t`$
 
 Entry when:
 
-$`|\epsilon_t| > \theta_{entry} \quad \textand} \quad \operatornamesign}(\Theta_t) = \operatornamesign}(\epsilon_t) \quad \textand} \quad \tau < \tau_{\max}`$
+```math
+|\epsilon_t| > \theta_{entry} \quad \textand} \quad \operatornamesign}(\Theta_t) = \operatornamesign}(\epsilon_t) \quad \textand} \quad \tau < \tau_{\max}
+```
 
 This double condition is critical: we require both that the market is *already* mispriced (level check) and that the mispricing is *expected to grow* (theta direction check). A mispricing that theta is pushing *against* (e.g., $`\hat{\pi}_t > p_t`$ but $`\Theta_t < 0`$) is a *converging* mispricing — gamma risk, not theta edge.
 
