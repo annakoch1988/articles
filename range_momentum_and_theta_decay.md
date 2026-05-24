@@ -81,9 +81,9 @@ A breakout is confirmed when price crosses the historical extreme and stays beyo
 **Step 3: Generate the entry signal.**
 
 $`S_t^{ROM} = \begin{cases}
-+1 & \text{if } B_t^+ > \theta_{entry} \text and } \tau_{\min} < \tau < \tau_{\max} \text and } R_t > R_{\min} \\[4pt]
--1 & \text{if } B_t^- > \theta_{entry} \text and } \tau_{\min} < \tau < \tau_{\max} \text and } R_t > R_{\min} \\[4pt]
-0 & \textotherwise}
++1 & \text{if } B_t^+ > \theta_{entry} \text{and } \tau_{\min} < \tau < \tau_{\max} \text{and} R_t > R_{\min} \\[4pt]
+-1 & \text{if } B_t^- > \theta_{entry} \text{and } \tau_{\min} < \tau < \tau_{\max} \text{and } R_t > R_{\min} \\[4pt]
+0 & \text{otherwise}
 \end{cases}`$
 
 - $`S_t^{ROM} = +1`$: **BUY YES** (upside breakout — momentum is bullish)
