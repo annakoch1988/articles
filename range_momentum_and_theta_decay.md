@@ -245,7 +245,7 @@ $`\epsilon_t = \hat{\pi}_t - p_t`$
 
 Entry when:
 
-$`|\epsilon_t| > \theta_{entry} \quad \textand{} \quad \textsign{}(\Theta_t) = \textsign{}(\epsilon_t) \quad \textand{} \quad \tau < \tau_{\max}`$
+$`|\epsilon_t| > \theta_{entry} \quad \textand} \quad \textsign}(\Theta_t) = \textsign}(\epsilon_t) \quad \textand} \quad \tau < \tau_{\max}`$
 
 This double condition is critical: we require both that the market is *already* mispriced (level check) and that the mispricing is *expected to grow* (theta direction check). A mispricing that theta is pushing *against* (e.g., $`\hat{\pi}_t > p_t`$ but $`\Theta_t < 0`$) is a *converging* mispricing — gamma risk, not theta edge.
 
@@ -264,7 +264,7 @@ $`S_t^{TDE} = \begin{cases}
 
 TDE confidence is driven by theta magnitude — larger theta means faster convergence, which means more certainty in the directional prediction:
 
-$`C_t = \min\!\left(\frac|\epsilon_t|}{\epsilon_{sat}},\; 1\right) \;\times\; \min\!\left(\frac|\Theta_t|}{\Theta_{sat}},\; 1\right)`$
+$`C_t = \min\!\left(\frac{|\epsilon_t|}{\epsilon_{sat}},\; 1\right) \;\times\; \min\!\left(\frac|\Theta_t|}{\Theta_{sat}},\; 1\right)`$
 
 where $`\epsilon_{sat}`$ (e.g., 0.15) and $`\Theta_{sat}`$ (e.g., 0.005 probability/sec) are saturation thresholds.
 
@@ -307,7 +307,7 @@ The model says there is an 87.8% probability BTC finishes above strike. Polymark
 
 $`\Theta_t \approx -\frac{\phi(1.168) \times 1.168}{2 \times 60}`$
 
-$`\phi(1.168) = \frac{1}{\sqrt{2\pi}}} e^{-1.168^2/2} = 0.399 \times e^{-0.682} = 0.399 \times 0.506 = 0.202`$.
+$`\phi(1.168) = \frac{1}{\sqrt{2\pi}} e^{-1.168^2/2} = 0.399 \times e^{-0.682} = 0.399 \times 0.506 = 0.202`$.
 
 $`\Theta_t \approx -0.202 \times 1.168 / 120 = -0.00197`$ prob/sec.
 
