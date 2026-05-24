@@ -179,7 +179,7 @@ The ROM strategy is grounded in three well-established empirical regularities:
 | **Range never forms** | Price trends monotonically from open with no consolidation | ROM naturally degrades to no-trade in trending windows. This is acceptable — not every window must produce a signal. |
 | **Wide, noisy range** | $`R_t`$ is large relative to $`\sigma_t`$, making any "breakout" just continuation of random walk | $`f_{range}`$ scales confidence down. Below a critical ratio, ROM produces no signal. |
 | **Late-window breakout** | Breakout occurs at $`\tau < \tau_{\max}`$ with insufficient time for momentum to mature | Hard filter: no entry when $`\tau < \tau_{\max}`$. |
-| **Slippage after breakout** | Polymarket MMs widen spreads or pull quotes after a sharp CEX move | Use limit orders ($`order\_class = \textlimit}`$) posted slightly inside the best ask/bid to capture the latency window before MM reprices. |
+| **Slippage after breakout** | Polymarket MMs widen spreads or pull quotes after a sharp CEX move | Use limit orders ($`order\_class = \text{limit}`$) posted slightly inside the best ask/bid to capture the latency window before MM reprices. |
 | **Multi-breakout whipsaw** | Price breaks up, reverses, breaks down — repeated breakouts in one window | Only enter on the *first* confirmed breakout per window. Subsequent breakouts within the same window are lower-quality (range integrity destroyed). |
 | **Volatility regime mismatch** | In low-vol windows, $`\theta_{entry}`$ is never reached; in high-vol windows, breakouts are noise | Dynamically scale $`\theta_{entry}`$ proportional to $`\sigma_t`$. |
 
