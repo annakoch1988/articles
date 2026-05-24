@@ -218,17 +218,17 @@ where $`\mu, \sigma`$ are rolling statistics over windows $`w_k`$ (e.g., 30 minu
 
 **Step 3: Construct composite on-chain sentiment index.**
 
-$$`\Psi_t^{ONC} = \beta_F \cdot Z_t^F + \beta_W \cdot Z_t^W + \beta_V \cdot Z_t^V`$$
+$`\Psi_t^{ONC} = \beta_F \cdot Z_t^F + \beta_W \cdot Z_t^W + \beta_V \cdot Z_t^V`$
 
 where $`\beta_F`$ is signed negatively (positive netflow = bearish), $`\beta_W`$ positively (whale activity signals informed direction), and $`\beta_V`$ positively (activity spike precedes vol). Coefficients are estimated via a rolling regression of 2-minute forward spot returns on the three z-scores.
 
 **Step 4: Generate the directional signal.**
 
-$$`S_t^{ONC} = \begin{cases}
+$`S_t^{ONC} = \begin{cases}
 +1 & \text{if } \Psi_t^{ONC} > \theta_{ONC} \text{ and } \tau > \tau_{\min} \\[4pt]
 -1 & \text{if } \Psi_t^{ONC} < -\theta_{ONC} \text{ and } \tau > \tau_{\min} \\[4pt]
 0 & \text{otherwise}
-\end{cases}`$$
+\end{cases}`$
 
 **Step 5: Edge and execution.**
 
@@ -316,19 +316,19 @@ Trade the divergence $`\hat{\pi}_t^{ONC} - p_t`$ following the standard edge fra
 
 A Polymarket YES token on "BTC > K at time T" is a binary digital option paying USD 1 if $`S_T > K`$ and USD 0 otherwise. In traditional finance, a binary call can be replicated using a portfolio of European options via the limit of a call spread:
 
-$$`\lim_{\epsilon \to 0} \frac{C(K - \epsilon) - C(K + \epsilon)}{2\epsilon} = \text{binary call}`$$
+$`\lim_{\epsilon \to 0} \frac{C(K - \epsilon) - C(K + \epsilon)}{2\epsilon} = \text{binary call}`$
 
 In practice, for discrete strikes, the binary call price is approximated by:
 
-$$`\Pi_t^{syn} = \frac{C(K - \Delta K) - C(K + \Delta K)}{2 \cdot \Delta K}`$$
+$`\Pi_t^{syn} = \frac{C(K - \Delta K) - C(K + \Delta K)}{2 \cdot \Delta K}`$
 
 More robustly, using Breeden-Litzenberger (1978), the binary call price equals the negative of the partial derivative of the call price with respect to strike:
 
-$$`\Pi_t^{syn} = -\frac{\partial C(K)}{\partial K} \approx \frac{C(K + \Delta K) - C(K - \Delta K)}{2 \cdot \Delta K}`$$
+$`\Pi_t^{syn} = -\frac{\partial C(K)}{\partial K} \approx \frac{C(K + \Delta K) - C(K - \Delta K)}{2 \cdot \Delta K}`$
 
 Additionally, the Polymarket NO token is a binary put: USD 1 if $`S_T \leq K`$. It can be replicated as:
 
-$$`\Pi_{NO, t}^{syn} = 1 - \Pi_{YES, t}^{syn} - e^{-r\tau} \cdot (\text{counterparty risk adjustment})`$$
+$`\Pi_{NO, t}^{syn} = 1 - \Pi_{YES, t}^{syn} - e^{-r\tau} \cdot (\text{counterparty risk adjustment})`$
 
 If $`p_t^{ask} > \Pi_t^{syn} + c`$ (where $`c`$ covers execution costs), the Polymarket token is overpriced and we can short it (sell YES) while buying the synthetic. If $`p_t^{bid} < \Pi_t^{syn} - c`$, the token is underpriced.
 
@@ -345,15 +345,15 @@ For a Polymarket contract resolving at $`T_{PM}`$, find Deribit (or OKX) option 
 
 **Step 2: Compute the synthetic YES price.**
 
-$$`\Pi_t^{syn}(K) = \frac{C(K_+) - C(K_-)}{K_+ - K_-}`$$
+$`\Pi_t^{syn}(K) = \frac{C(K_+) - C(K_-)}{K_+ - K_-}`$
 
 If extracting from puts instead (for deep OTM strikes):
 
-$$`\Pi_t^{syn}(K) = 1 - \frac{P(K) - P(K - \Delta K)}{\Delta K}`$$
+$`\Pi_t^{syn}(K) = 1 - \frac{P(K) - P(K - \Delta K)}{\Delta K}`$
 
 Apply adjustment for expiry mismatch ($`T_{opt} - T_{PM}`$) using a theta-decay interpolation:
 
-$$`\Pi_t^{syn, adj} = \Pi_t^{syn} - \Theta_{opt} \cdot (T_{opt} - T_{PM})`$$
+$`\Pi_t^{syn, adj} = \Pi_t^{syn} - \Theta_{opt} \cdot (T_{opt} - T_{PM})`$
 
 where $`\Theta_{opt}`$ is the binary option theta from the options surface.
 
@@ -361,11 +361,11 @@ where $`\Theta_{opt}`$ is the binary option theta from the options surface.
 
 Let $`c_{total} = c_{spread} + c_{fee} + c_{slippage}`$ be the total round-trip transaction cost:
 
-$$`\text{Signal} = \begin{cases}
+$`\text{Signal} = \begin{cases}
 \text{SELL YES (BUY NO)} & \text{if } p_t^{bid} > \Pi_t^{syn, adj} + c_{total} \\[4pt]
 \text{BUY YES} & \text{if } p_t^{ask} < \Pi_t^{syn, adj} - c_{total} \\[4pt]
 \text{NO TRADE} & \text{otherwise}
-\end{cases}`$$
+\end{cases}`$
 
 **Step 4: Execute the arbitrage.**
 
@@ -404,17 +404,17 @@ Still negative — this reflects that the call spread is not a pure binary but c
 
 **Correct approach:** Use put-based replication or the complete call-spread formula for a digital:
 
-$$`\Pi_{t}^{syn} = \frac{C(K) + C(K - \Delta K) - 2C(K - \Delta K/2)}{(\Delta K)^2/4}`$$
+$`\Pi_{t}^{syn} = \frac{C(K) + C(K - \Delta K) - 2C(K - \Delta K/2)}{(\Delta K)^2/4}`$
 
 With $`K = 68500`$, $`\Delta K = 200`$, $`C(68500) = 0.22`$, $`C(68400) = 0.38`$, $`C(68600) = 0.15`$:
 
-$$`\Pi^{syn} = \frac{0.22 + 0.38 - 2(0.26)}{10000} = \frac{0.60 - 0.52}{10000} = 0.000008`$$
+$`\Pi^{syn} = \frac{0.22 + 0.38 - 2(0.26)}{10000} = \frac{0.60 - 0.52}{10000} = 0.000008`$
 
 Still near-zero due to wide strikes relative to the binary's short horizon. **Practical limitation:** SRA requires option strikes within 10–50 USD of $`K`$ for 5-minute binaries, which may not exist on Deribit.
 
 **Alternative SRA sub-strategy:** Use perpetual futures instead. A YES token is equivalent to:
 
-$$`\text{YES price} \approx \max\left(0, \frac{S_T - K}{\text{collar width}}\right)`$$
+$`\text{YES price} \approx \max\left(0, \frac{S_T - K}{\text{collar width}}\right)`$
 
 If on-chain or perp markets offer leveraged long/short products with liquidations near $`K`$, these can proxy the replication.
 
@@ -463,11 +463,11 @@ The Black-Scholes model assumes constant volatility $`\sigma`$. For 5-minute win
 
 The Bates (1996) SVCJ model (Stochastic Volatility with Correlated Jumps) captures all three:
 
-$$`\begin{aligned}
+$`\begin{aligned}
 d\ln S_t &= \mu dt + \sqrt{V_t} dW_t^S + J_S dN_t \\
 dV_t &= \kappa(\theta - V_t)dt + \sigma_V \sqrt{V_t} dW_t^V + J_V dN_t \\
 \text{corr}(dW_t^S, dW_t^V) &= \rho
-\end{aligned}`$$
+\end{aligned}`$
 
 where $`J_S`$ and $`J_V`$ are simultaneous jump sizes in spot and volatility, $`N_t`$ is a Poisson process with intensity $`\lambda`$, $`\kappa`$ is the mean-reversion speed of variance, $`\theta`$ is the long-run variance, and $`\sigma_V`$ is the vol-of-vol.
 
@@ -487,7 +487,7 @@ The binary call price under SVCJ differs materially from BS when:
 
 Using 1-second Binance spot returns over a trailing window $`w_{SVCJ}`$ (e.g., 30 minutes), estimate the 9 SVCJ parameters via likelihood-based methods:
 
-$$`\{\mu, \kappa, \theta, V_0, \sigma_V, \rho, \lambda, \mu_{J_S}, \sigma_{J_S}, \mu_{J_V}, \sigma_{J_V}\}`$$
+$`\{\mu, \kappa, \theta, V_0, \sigma_V, \rho, \lambda, \mu_{J_S}, \sigma_{J_S}, \mu_{J_V}, \sigma_{J_V}\}`$
 
 Use the efficient importance sampling method of Liesenfeld & Richard (2006) or the Markov-chain MLE of Eraker et al. (2003).
 
@@ -497,19 +497,19 @@ For computational feasibility at 1-second resolution, pre-estimate parameters of
 
 The binary call price $`\hat{\pi}_t^{SVCJ}`$ is computed via Fourier inversion of the conditional characteristic function $`\varphi(u)`$:
 
-$$`\hat{\pi}_t^{SVCJ} = \frac{1}{2} + \frac{1}{\pi} \int_0^{\infty} \text{Re}\left[ \frac{e^{-iu \ln(K)} \varphi(u)}{iu} \right] du`$$
+$`\hat{\pi}_t^{SVCJ} = \frac{1}{2} + \frac{1}{\pi} \int_0^{\infty} \text{Re}\left[ \frac{e^{-iu \ln(K)} \varphi(u)}{iu} \right] du`$
 
 where $`\varphi(u) = \mathbb{E}[e^{iu \ln(S_T)} | \mathcal{F}_t]`$ is available in closed form for the SVCJ model (Duffie, Pan & Singleton 2000).
 
 **Step 3: Compute the divergence signal.**
 
-$$`\epsilon_t^{SVCJ} = \hat{\pi}_t^{SVCJ} - \hat{\pi}_t^{BS}`$$
+$`\epsilon_t^{SVCJ} = \hat{\pi}_t^{SVCJ} - \hat{\pi}_t^{BS}`$
 
-$$`S_t^{SVCJ} = \begin{cases}
+$`S_t^{SVCJ} = \begin{cases}
 +1 & \text{if } \epsilon_t^{SVCJ} > \theta_{SVCJ} \\[4pt]
 -1 & \text{if } \epsilon_t^{SVCJ} < -\theta_{SVCJ} \\[4pt]
 0 & \text{otherwise}
-\end{cases}`$$
+\end{cases}`$
 
 **Step 4: Trade.**
 
@@ -615,7 +615,7 @@ At time $`t`$, identify all active binary contracts on the same underlying (e.g.
 
 Form a matrix $`\mathbf{P} \in \mathbb{R}^{m \times n}`$ where rows are $`m`$ historical snapshots (e.g., last 60 seconds at 1-second intervals) and columns are contract mid-prices. Standardize each column to z-scores:
 
-$$`\tilde{p}_i^{(t)} = \frac{p_i^{(t)} - \mu_i}{\sigma_i}`$$
+$`\tilde{p}_i^{(t)} = \frac{p_i^{(t)} - \mu_i}{\sigma_i}`$
 
 **Step 3: Compute PCA.**
 
@@ -627,17 +627,17 @@ The eigenportfolio weights for component $`j`$ are $`\mathbf{w}_j = \mathbf{L}_{
 
 For each contract $`i`$, the PC-implied price is:
 
-$$`\hat{p}_i^{(t)} = \mu_i + \sigma_i \cdot \sum_{j=1}^{k} L_{i,j} \cdot f_j^{(t)}`$$
+$`\hat{p}_i^{(t)} = \mu_i + \sigma_i \cdot \sum_{j=1}^{k} L_{i,j} \cdot f_j^{(t)}`$
 
 where $`f_j^{(t)} = \tilde{\mathbf{P}}^{(t)} \cdot \mathbf{L}_{:,j}`$ is the $`j`$-th principal component score at time $`t`$.
 
 The residual mispricing is:
 
-$$`\epsilon_i^{(t)} = p_i^{(t)} - \hat{p}_i^{(t)}`$$
+$`\epsilon_i^{(t)} = p_i^{(t)} - \hat{p}_i^{(t)}`$
 
 Normalise to a z-score using the trailing standard deviation of residuals:
 
-$$`z_i^{(t)} = \frac{\epsilon_i^{(t)}}{\hat{\sigma}_{\epsilon, i}(w_{PCA})}`$$
+$`z_i^{(t)} = \frac{\epsilon_i^{(t)}}{\hat{\sigma}_{\epsilon, i}(w_{PCA})}`$
 
 **Step 5: Generate trades.**
 
@@ -749,7 +749,7 @@ $$`s_j \in [-1, +1] = \text{finBERT}(\text{text}_j)`$$
 
 using a fine-tuned financial BERT model (or RoBERTa-finance). Aggregate over a sliding window $`w_{NLP}`$ (e.g., 30 seconds):
 
-$$`\mathcal{S}_t = \frac{\sum_{j: t_j \in [t-w, t]} s_j \cdot v_j}{\sum_{j} v_j}`$$
+$`\mathcal{S}_t = \frac{\sum_{j: t_j \in [t-w, t]} s_j \cdot v_j}{\sum_{j} v_j}`$
 
 where $`v_j`$ is a source-specific volume weight (higher weight for major news, lower for random tweets).
 
@@ -757,23 +757,23 @@ where $`v_j`$ is a source-specific volume weight (higher weight for major news, 
 
 Compute the z-score of $`\mathcal{S}_t`$ against its trailing distribution:
 
-$$`Z_t^{\mathcal{S}} = \frac{\mathcal{S}_t - \mu_{\mathcal{S}}(W_{baseline})}{\sigma_{\mathcal{S}}(W_{baseline})}`$$
+$`Z_t^{\mathcal{S}} = \frac{\mathcal{S}_t - \mu_{\mathcal{S}}(W_{baseline})}{\sigma_{\mathcal{S}}(W_{baseline})}`$
 
 A surge is detected when $`|Z_t^{\mathcal{S}}| > z_{surge}`$ AND the sentiment is directionally consistent across at least 3 distinct sources (to filter single-source noise).
 
 **Step 4: Map sentiment to directional signal.**
 
-$$`S_t^{NLP} = \begin{cases}
+$`S_t^{NLP} = \begin{cases}
 +1 & \text{if } Z_t^{\mathcal{S}} > z_{surge} \text{ and most articles reference the underlying coin} \\[4pt]
 -1 & \text{if } Z_t^{\mathcal{S}} < -z_{surge} \text{ and most articles reference the underlying coin} \\[4pt]
 0 & \text{otherwise}
-\end{cases}`$$
+\end{cases}`$
 
 **Step 5: Combine with spot confirmation.**
 
 To reduce false positives from irrelevant news, only execute when the spot direction in the 5 seconds following the NLP signal agrees with the sentiment:
 
-$$`\text{execute if: } S_t^{NLP} \neq 0 \text{ and } \text{sign}(S_{t+5} - S_t) = S_t^{NLP}`$$
+$`\text{execute if: } S_t^{NLP} \neq 0 \text{ and } \text{sign}(S_{t+5} - S_t) = S_t^{NLP}`$
 
 This short confirmation window filters noise while preserving most of the latency edge.
 
