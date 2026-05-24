@@ -238,9 +238,9 @@ $$`\hat{r}_{t, t+h} = \alpha_{ONC} + \gamma_{ONC} \cdot \Psi_t^{ONC}`$$
 
 Translate to adjusted fair probability:
 
-$$`\hat{S}_{t+h} = S_t \cdot \exp(\hat{r}_{t, t+h})`$$
+$`\hat{S}_{t+h} = S_t \cdot \exp(\hat{r}_{t, t+h})`$
 
-$$`\hat{\pi}_t^{ONC} = \Phi\left(\frac{\ln(\hat{S}_{t+h} / K)}{\sigma \sqrt{\tau/60}}\right)`$$
+$`\hat{\pi}_t^{ONC} = \Phi\left(\frac{\ln(\hat{S}_{t+h} / K)}{\sigma \sqrt{\tau/60}}\right)`$
 
 Trade the divergence $`\hat{\pi}_t^{ONC} - p_t`$ following the standard edge framework.
 
