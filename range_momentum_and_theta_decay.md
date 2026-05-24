@@ -254,7 +254,7 @@ This double condition is critical: we require both that the market is *already* 
 $`S_t^{TDE} = \begin{cases}
 +1 & \text{if} \epsilon_t > \theta_{entry} \text{and} \Theta_t > 0 \text{and} \tau < \tau_{\max} \\[4pt]
 -1 & \text{if} \epsilon_t < -\theta_{entry} \text{and} \Theta_t < 0 \text{and} \tau < \tau_{\max} \\[4pt]
-0 & \textotherwise}
+0 & \text{otherwise}
 \end{cases}`$
 
 - $`S_t^{TDE} = +1`$: **BUY YES** — fair probability is above market AND still climbing
