@@ -112,7 +112,7 @@ Rewards more remaining time for momentum to materialize. `$`\tau_{optimal}`$` is
 
 For a BUY YES at `$`p_t^{ask}`$` with confidence `$`C_t`$` and fee rate `$`f`$`:
 
-`$`\textedge} = C_t \times (1 - p_t^{ask}) - f \times p_t^{ask} \times (1 - p_t^{ask}) - \theta_{edge}`$`
+`$`\text{edge} = C_t \times (1 - p_t^{ask}) - f \times p_t^{ask} \times (1 - p_t^{ask}) - \theta_{edge}`$`
 
 Where `$`\theta_{edge}`$` is a minimum edge floor (e.g., 0.01). Symmetric for BUY NO. The intuition: confidence quantifies how likely the breakout direction correctly predicts the resolution outcome; this is discounted by fees.
 
@@ -224,7 +224,7 @@ This creates a structural opportunity: in the final 60–120 seconds, the determ
 
 From the fair probability formula `$`\hat{\pi}_t = \Phi(d_1)`$` with `$`d_1 = \ln(S_t/K) / (\sigma_t \sqrt{\tau/60})`$`, differentiate with respect to `$`\tau`$` (in seconds):
 
-`$`\frac{\partial d_1}{\partial \tau} = -\frac1}{2} \cdot \frac{\ln(S_t / K) \cdot \sqrt60}}{\sigma_t \cdot \tau^{3/2}}`$`
+`$`\frac{\partial d_1}{\partial \tau} = -\frac{1}{2} \cdot \frac{\ln(S_t / K) \cdot \sqrt{60}}{\sigma_t \cdot \tau^{3/2}}`$`
 
 `$`\Theta_t = \frac{\partial \hat{\pi}_t}{\partial \tau} = \phi(d_1) \cdot \frac{\partial d_1}{\partial \tau}`$`
 
@@ -272,7 +272,7 @@ where `$`\epsilon_{sat}`$` (e.g., 0.15) and `$`\Theta_{sat}`$` (e.g., 0.005 prob
 
 For BUY YES at `$`p_t^{ask}`$`:
 
-`$`\textedge} = \hat{\pi}_t - p_t^{ask} - f \times p_t^{ask} \times (1 - p_t^{ask}) - \theta_{edge}`$`
+`$`\text{edge} = \hat{\pi}_t - p_t^{ask} - f \times p_t^{ask} \times (1 - p_t^{ask}) - \theta_{edge}`$`
 
 Unlike ROM where the edge is confidence-scaled, TDE's edge is computed directly from the fair probability `$`\hat{\pi}_t`$`, which is expected to be a more accurate estimate than `$`p_t`$` near resolution.
 
@@ -295,7 +295,7 @@ Unlike ROM where the edge is confidence-scaled, TDE's edge is computed directly 
 
 **Step 1 — Fair probability:**
 
-`$`\tau_{\min} = 60/60 = 1.0`$` min. `$`\sigma = 0.001 \times \sqrt1.0} = 0.001`$`.
+`$`\tau_{\min} = 60/60 = 1.0`$` min. `$`\sigma = 0.001 \times \sqrt{1.0} = 0.001`$`.
 
 `$`d_1 = \ln(68580/68500) / 0.001 = 0.001168 / 0.001 = 1.168`$`.
 
@@ -307,7 +307,7 @@ The model says there is an 87.8% probability BTC finishes above strike. Polymark
 
 `$`\Theta_t \approx -\frac{\phi(1.168) \times 1.168}{2 \times 60}`$`
 
-`$`\phi(1.168) = \frac1}{\sqrt2\pi}} e^{-1.168^2/2} = 0.399 \times e^{-0.682} = 0.399 \times 0.506 = 0.202`$`.
+`$`\phi(1.168) = \frac{1}{\sqrt{2\pi}}} e^{-1.168^2/2} = 0.399 \times e^{-0.682} = 0.399 \times 0.506 = 0.202`$`.
 
 `$`\Theta_t \approx -0.202 \times 1.168 / 120 = -0.00197`$` prob/sec.
 
@@ -327,9 +327,9 @@ Market mispricing: `$`\epsilon_t = \hat{\pi}_t - p_t = 0.878 - 0.72 = +0.158`$`.
 
 `$`C_t = \min(0.158/0.15, 1) \times \min(0.00197/0.005, 1) = 1.0 \times 0.394 = 0.394`$`.
 
-`$`\textedge} = 0.878 - 0.72 - 0.07 \times 0.72 \times (1 - 0.72) - 0.01 = 0.158 - 0.014 - 0.01 = +0.134`$` USD per share.
+`$`\text{edge} = 0.878 - 0.72 - 0.07 \times 0.72 \times (1 - 0.72) - 0.01 = 0.158 - 0.014 - 0.01 = +0.134`$` USD per share.
 
-**Action:** BUY YES at 0.72. Exposure: 100 shares at USD 72.00 notional. Expected profit: `$`100 \times 0.134 = \textUSD } 13.40`$` net of fees.
+**Action:** BUY YES at 0.72. Exposure: 100 shares at USD 72.00 notional. Expected profit: `$`100 \times 0.134 = \text{USD } 13.40`$` net of fees.
 
 ### B.6 Statistical Backing
 
